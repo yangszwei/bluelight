@@ -11,7 +11,15 @@
 
 
 ## Install
+
+### Local
 * Put all files into any directory in the static directory on any HTTP server.
+
+### Docker Compose
+* Run the following command to start the BlueLight Viewer with Docker Compose.
+```bash
+docker compose up -d
+```
 
 ## DICOMWeb Configuration
 * go to `./bluelight/data/config.json` and change the configuration of DICOM server.
