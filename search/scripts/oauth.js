@@ -1,7 +1,6 @@
 var OAuthConfig = {};
 var keycloakAPI = "";
 
-//auth();
 window.addEventListener("load", function(event) {
     auth();
 });
@@ -33,9 +32,14 @@ async function auth() {
             }
             if(OAuthConfig.tokenInRequest == true)
             {
-                ConfigLog.QIDO.token.Authorization = "Bearer " + theToken;
-                ConfigLog.WADO.token.Authorization = "Bearer " + theToken;
-                ConfigLog.STOW.token.Authorization = "Bearer " + theToken;
+
+                
+                XMLHttpRequest.prototype.origOpen = XMLHttpRequest.prototype.open;
+                XMLHttpRequest.prototype.open   = function () {
+                    this.origOpen.apply(this, arguments);
+                    this.setRequestHeader('Authorization', "Bearer " + theToken);
+                };
+
                 //readAllJson(readJson);
             }
             console.log(ConfigLog);
@@ -46,6 +50,7 @@ async function auth() {
             setCookie("access_token","",7);
             let redirectUri = removeURLParameter(window.location.href, "code");
             redirectUri = removeURLParameter(redirectUri, "session_state");
+            redirectUri = removeURLParameter(redirectUri, "iss");
             let loginPage = `${keycloakAPI}${OAuthConfig.endpoints.auth}?client_id=${OAuthConfig.client_id}&grant_type=authorization_code&response_type=code&redirect_uri=${redirectUri}`;
             window.location.href = loginPage;
             return false;
@@ -121,8 +126,9 @@ function requestToken(code, session_state) {
         let tokenAPI = `${keycloakAPI}${OAuthConfig.endpoints.token}`;
         let redirectUri = removeURLParameter(window.location.href, "code");
         redirectUri = removeURLParameter(redirectUri, "session_state");
+        redirectUri = removeURLParameter(redirectUri, "iss");
         let responseToken = "";
-        let params = `grant_type=authorization_code&client_id=${OAuthConfig.client_id}&code=${code}&session_state=${session_state}&redirect_uri=${redirectUri}`;
+        let params = `grant_type=authorization_code&client_id=${OAuthConfig.client_id}&client_secret=${OAuthConfig.client_secret}&code=${code}&session_state=${session_state}&redirect_uri=${redirectUri}`;
         let request = new XMLHttpRequest();
         request.open('POST', tokenAPI);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

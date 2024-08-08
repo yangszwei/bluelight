@@ -1,14 +1,16 @@
 {
-    "enabled":false,
-    "hostname":"127.0.0.1",
-    "port":"8080",
-    "http":"http",
-    "client_id":"account",
+    "enabled":true,
+    "hostname":"keycloak.dicom.tw",
+    "port":"",
+    "http":"https",
+    "client_id":"dcm4chee",
+    "client_secret":"aPdFvQ2lQ6QXIrjqnnt6xDo5jwKC9t4Z",
     "endpoints":
     {
-        "auth":"realms/TestRealm/protocol/openid-connect/auth",
-        "validation":"realms/TestRealm/protocol/openid-connect/userinfo", 
-        "token":"realms/TestRealm/protocol/openid-connect/token" 
+        "auth":"realms/mitw-test/protocol/openid-connect/auth",
+        "validation":"realms/mitw-test/protocol/openid-connect/userinfo", 
+        "token":"realms/mitw-test/protocol/openid-connect/token" 
     },
     "tokenInRequest":true
 }
+
