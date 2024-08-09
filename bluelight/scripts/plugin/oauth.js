@@ -34,11 +34,15 @@ async function auth() {
             if(OAuthConfig.tokenInRequest == true)
             {
                 
+                ConfigLog.QIDO.token.Authorization = "Bearer " + theToken;
+                ConfigLog.WADO.token.Authorization = "Bearer " + theToken;
+                ConfigLog.STOW.token.Authorization = "Bearer " + theToken;
+                /*
                 XMLHttpRequest.prototype.origOpen = XMLHttpRequest.prototype.open;
                 XMLHttpRequest.prototype.open   = function () {
                     this.origOpen.apply(this, arguments);
                     this.setRequestHeader('Authorization', "Bearer " + theToken);
-                };
+                };*/
                 readAllJson(readJson);
             }
             console.log(ConfigLog);
