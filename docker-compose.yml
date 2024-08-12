@@ -1,5 +1,12 @@
 services:
-  bluelight:
+  nginx:
     build: .
     ports:
-      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - bluelight
+  your_app:
+    image: bluelight

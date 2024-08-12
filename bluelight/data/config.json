@@ -20,7 +20,7 @@
             "includefield": false,
             "enableXml2Dcm":false,
             "Xml2DcmUrl":"/upload",
-            "target": "https://dicomviewer.hhc-ut.net/bluelight/html/start.html",
+            "target": "https://localhost/bluelight/html/start.html",
             "token": {
                 "apikey":"",
                 "bearer":""
@@ -46,7 +46,7 @@
             "includefield": false,
             "enableXml2Dcm":false,
             "Xml2DcmUrl":"/upload",
-            "target": "https://dicomviewer.hhc-ut.net/bluelight/html/start.html",
+            "target": "https://localhost/bluelight/html/start.html",
             "token": {
                 "apikey":"",
                 "bearer":""

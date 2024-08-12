@@ -1,0 +1,18 @@
+FROM nginx:alpine
+
+COPY . /usr/share/nginx/html
+#COPY selfsigned.crt /etc/nginx/certs/selfsigned.crt
+#COPY selfsigned.key /etc/nginx/certs/selfsigned.key
+#COPY ./nginx.conf /etc/nginx/nginx.conf
+
+RUN mkdir -p /etc/nginx/certs
+
+RUN apk add --no-cache openssl
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/certs/selfsigned.key \
+    -out /etc/nginx/certs/selfsigned.crt \
+    -subj "/C=TW/ST=Taiwan/L=Taipei/O=/OU=/CN=localhost.com"
+
+RUN echo "events {}http {server{listen 443 ssl;server_name localhost;ssl_certificate /etc/nginx/certs/selfsigned.crt;ssl_certificate_key /etc/nginx/certs/selfsigned.key;location / {root /usr/share/nginx/html;index index.html index.htm;}}} "> /etc/nginx/nginx.conf
+
