@@ -51,7 +51,7 @@ async function auth() {
             let redirectUri = removeURLParameter(window.location.href, "code");
             redirectUri = removeURLParameter(redirectUri, "session_state");
             redirectUri = removeURLParameter(redirectUri, "iss");
-            let loginPage = `${keycloakAPI}${OAuthConfig.endpoints.auth}?client_id=${OAuthConfig.client_id}&grant_type=authorization_code&response_type=code&redirect_uri=${redirectUri}`;
+            let loginPage = `${keycloakAPI}${OAuthConfig.endpoints.auth}?client_id=${OAuthConfig.client_id}&client_secret=${OAuthConfig.client_secret}&grant_type=authorization_code&response_type=code&redirect_uri=${redirectUri}`;
             window.location.href = loginPage;
             return false;
         }
